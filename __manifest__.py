@@ -28,7 +28,7 @@
         'views/academic_year_views.xml',
         'views/academic_year_level_views.xml',
         'views/school_major_views.xml',
-        'views/class_room_views.xml',
+        'views/class_group_views.xml',
         'views/room_views.xml',
         'views/school_curriculum_views.xml',
         'views/school_enrollment_views.xml',

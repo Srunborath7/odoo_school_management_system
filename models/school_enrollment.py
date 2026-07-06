@@ -6,7 +6,7 @@ class SchoolEnrollment(models.Model):
     _description = "School Enrollment"
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char(string="Name")
+    name = fields.Char(string="Name", default="New")
     student_id = fields.Many2one('school.student.registry', string="Student")
     batch_id = fields.Many2one('school.batch', string="Batch")
     curriculum_id = fields.Many2one('school.curriculum', string="Curriculum")
@@ -28,3 +28,18 @@ class SchoolEnrollment(models.Model):
                 "school.enrollment"
             ) or "New"
         return super().create(vals)
+    def action_active(self):
+        self.write({'status': 'active'})
+        self.message_post(body="Enrollment status has been activated.")
+
+    def action_inactive(self):
+        self.write({'status': 'inactive'})
+        self.message_post(body="Enrollment status has been set to inactive.")
+
+    def action_closed(self):
+        self.write({'status': 'closed'})
+        self.message_post(body="Enrollment status has been closed.")
+
+    def action_reset_draft(self):
+        self.write({'status': 'draft'})
+        self.message_post(body="Enrollment status has been reset to draft.")

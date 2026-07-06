@@ -7,7 +7,7 @@ class SchoolCurriculum(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'name'
 
-    name = fields.Char(string="Curriculum Name",compute="_compute_name",store=True,tracking=True,)
+    name = fields.Char(string="Curriculum Name",store=True,tracking=True,default="New")
     major_id = fields.Many2one('school.major',string="Major",required=True,tracking=True,)
     academic_program_id = fields.Many2one('school.academic.program',string="Academic Program",required=True,tracking=True,)
     academic_year_id = fields.Many2one('school.academic.year',string="Academic Year",required=True,tracking=True,)
@@ -15,6 +15,20 @@ class SchoolCurriculum(models.Model):
     course_ids = fields.Many2many('school.course','school_curriculum_course_rel','curriculum_id','course_id',string="Courses",tracking=True,)
     total_credit = fields.Integer(string="Total Credit",store=True,)
     description = fields.Text(string="Description")
+    enrollment_ids = fields.One2many(
+        'school.enrollment',
+        'curriculum_id',
+        string="Enrollments"
+    )
+    student_ids = fields.Many2many(
+        'school.student.registry',
+        compute="_compute_students",
+        string="Students"
+    )
+
+    def _compute_students(self):
+        for rec in self:
+            rec.student_ids = rec.enrollment_ids.mapped('student_id')
 
     status = fields.Selection([
         ('draft', 'Draft'),
@@ -23,18 +37,13 @@ class SchoolCurriculum(models.Model):
         ('closed', 'Closed'),
     ], default='draft', tracking=True)
 
-    @api.depends(
-        'major_id.name',
-        'academic_level_id.name',
-        'academic_level_id.semester'
-    )
-    def _compute_name(self):
-        for rec in self:
-            rec.name = "%s Year %s Semester %s" % (
-                rec.major_id.name or "",
-                rec.academic_level_id.name or "",
-                rec.academic_level_id.semester or ""
-            )
+    @api.model
+    def create(self, vals):
+        if vals.get("name", "New") == "New":
+            vals["name"] = self.env["ir.sequence"].next_by_code(
+                "school.curriculum"
+            ) or "New"
+        return super().create(vals)
 
     def action_active(self):
         self.write({'status': 'active'})

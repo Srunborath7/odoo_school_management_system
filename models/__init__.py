@@ -6,7 +6,7 @@ from . import academic_year
 from . import school_setting
 from . import academic_program
 from . import school_academic_year_level
-from . import class_room
+from . import class_group
 from . import batch
 from . import time_table_slot
 from . import room

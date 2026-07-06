@@ -16,7 +16,6 @@ class StudentRegistry(models.Model):
     phone = fields.Char(string='Phone', tracking=True)
     email = fields.Char(string='Email', tracking=True)
     address = fields.Char(string='Address', tracking=True)
-    course_ids = fields.Many2one('school.course',string='Course', required=True, tracking=True)
     enrolled_date = fields.Date(
         string="Enrolled Date",
         default=fields.Date.today,
@@ -30,12 +29,12 @@ class StudentRegistry(models.Model):
             ('enrolled', 'Enrolled'),
             ('graduated', 'Graduated'),
             ('cancelled', 'Cancelled')
-        ],
-        string="Status",
-        default='draft',
-        required=True,
-        tracking=True
-    )
+        ],string="Status",default='draft',required=True,tracking=True)
+    gender = fields.Selection([
+        ('male', 'Male'),
+        ('female', 'Female'),
+        ('other', 'Other')
+    ],string="Gender",default='male',required=True,tracking=True)
     calc_age = fields.Integer(string="Calc Age", compute='_compute_calc_age')
     theme_primary = fields.Char(compute='_compute_theme_colors')
     theme_secondary = fields.Char(compute='_compute_theme_colors')

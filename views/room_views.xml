@@ -19,25 +19,34 @@
         <field name="arch" type="xml">
             <form string="Room">
                 <header>
-                    <button name="action_open_room_type_modal"
-                            type="object"
-                            string="Create Room Type"
-                            class="btn-primary"/>
+                    <button name="action_reserved" type="object" string="Reserve" class="btn-primary" invisible="status != 'available'"/>
+                    <button name="action_occupied" type="object" string="Occupied" class="btn-success" invisible="status != 'reserved'"/>
+                    <button name="action_maintenance" type="object" string="Maintenance" class="btn-warning" invisible="status != 'occupied'"/>
+                    <button name="action_available" type="object" string="Available" class="btn-info" invisible="status != 'maintenance'"/>
+                    <button name="action_inactive" type="object" string="Inactive" class="btn-secondary" invisible="status == 'inactive'"/>
+                    <button name="action_reset" type="object" string="Reset" invisible="status != 'inactive'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="available,reserved,occupied,maintenance,inactive"/>
                 </header>
-
                 <sheet>
                     <div class="oe_title">
                         <h1>
                             <field name="name" placeholder="Room Name"/>
                         </h1>
                     </div>
+                    <div class="card p-3 mb-3">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="flex-grow-1 me-3">
+                                <field name="room_type_id"/>
+                            </div>
+                            <button name="action_open_room_type_modal" type="object" string="Create Room Type"
+                                    class="btn btn-primary"/>
+                        </div>
+                    </div>
                     <group>
                         <group string="Room Details">
-                            <field name="room_type_id"/>
                             <field name="capacity"/>
                             <field name="status"/>
                         </group>
-
                         <group string="Location">
                             <field name="floor"/>
                             <field name="building"/>
@@ -48,7 +57,6 @@
                             <field name="description"/>
                         </page>
                     </notebook>
-
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids"/>

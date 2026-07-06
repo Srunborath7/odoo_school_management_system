@@ -27,12 +27,31 @@ class SchoolRoom(models.Model):
             'view_mode': 'form',
             'target': 'new',
         }
+
+    def action_available(self):
+        self.write({'status': 'available'})
+
+    def action_reserved(self):
+        self.write({'status': 'reserved'})
+
+    def action_occupied(self):
+        self.write({'status': 'occupied'})
+
+    def action_maintenance(self):
+        self.write({'status': 'maintenance'})
+
+    def action_inactive(self):
+        self.write({'status': 'inactive'})
+
+    def action_reset(self):
+        self.write({'status': 'available'})
+
 class RoomType(models.Model):
     _name = 'school.room.type'
     _description = 'School Room Type'
 
     name = fields.Char(required=True)
-    description = fields.Char()
+    description = fields.Char(string='Description')
 
     room_ids = fields.One2many(
         'school.room',

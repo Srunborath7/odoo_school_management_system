@@ -69,8 +69,8 @@
                 <templates>
                     <t t-name="kanban-box">
                         <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
-                            <div class="card-header text-center  text-white"
-                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);">
+                            <div class="card-header text-center text-white py-4"
+                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);border-radius: 24px 24px 0 0;box-shadow: 0 4px 12px rgba(0,0,0,.15);">
                                 <i class="fa fa-graduation-cap fa-3x me-2" title="Academic Program"/>
                                 <h4 class="md-0 fw-bold text-white p-2">
                                     <field name="name"/>

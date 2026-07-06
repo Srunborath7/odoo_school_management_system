@@ -10,10 +10,10 @@
                 <field name="name"/>
                 <field name="DOB"/>
                 <field name="calc_age"/>
+                <field name="gender"/>
                 <field name="phone"/>
                 <field name="email"/>
                 <field name="address"/>
-                <field name="course_ids"/>
                 <field name="enrolled_date"/>
                 <field name="status"/>
                 <field name="create_uid"
@@ -39,12 +39,12 @@
                         <group string="Student Info">
                             <field name="name"/>
                             <field name="DOB"/>
+                            <field name="gender"/>
                             <field name="phone"/>
                             <field name="email"/>
                             <field name="address"/>
                         </group>
                         <group string="Academic Info">
-                            <field name="course_ids"/>
                             <field name="enrolled_date"/>
                             <field name="status"/>
                             <field name="create_uid"
@@ -67,7 +67,6 @@
             <kanban default_group_by="status">
                 <field name="name"/>
                 <field name="DOB"/>
-                <field name="course_ids"/>
                 <field name="enrolled_date"/>
                 <field name="calc_age"/>
                 <field name="status"/>
@@ -90,11 +89,6 @@
                                     <i class="fa fa-calendar text-primary me-2" title="Calendar"/>
                                     <strong>Date of Birth:</strong>
                                     <field name="DOB"/>
-                                </div>
-                                <div class="mb-2">
-                                    <i class="fa fa-book me-2" title="Book"/>
-                                    <strong>Course:</strong>
-                                    <field name="course_ids"/>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-calendar me-2" title="Calendar"/>
@@ -135,20 +129,19 @@
         <field name="arch" type="xml">
             <search string="Search Students">
                 <field name="name"/>
-                <field name="course_ids"/>
                 <field name="status"/>
+                <field name="gender"/>
                 <filter string="Draft" name="draft" domain="[('status','=','draft')]"/>
                 <filter string="Enrolled" name="enrolled" domain="[('status','=','enrolled')]"/>
                 <filter string="Graduated" name="graduated" domain="[('status','=','graduated')]"/>
                 <filter string="Cancelled" name="cancelled" domain="[('status','=','cancelled')]"/>
                 <separator/>
                 <group expand="0" string="Group By">
-                    <filter string="Course" name="group_course" context="{'group_by':'course_ids'}"/>
                     <filter string="Status" name="group_status" context="{'group_by':'status'}"/>
                 </group>
                 <searchpanel>
-                    <field name="course_ids" string="Course" enable_counters="1"/>
                     <field name="status" string="Status" enable_counters="1"/>
+                    <field name="gender" string="Gender" enable_counters="1"/>
                 </searchpanel>
             </search>
         </field>

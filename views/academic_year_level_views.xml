@@ -52,7 +52,7 @@
         <field name="arch" type="xml">
             <kanban>
                 <field name="name"/>
-               <field name="year"/>
+                <field name="year"/>
                 <field name="semester"/>
                 <field name="degree"/>+
                 <field name="status"/>
@@ -67,7 +67,7 @@
                                     <field name="name"/>
                                 </h4>
                                 <small class="opacity-75">
-                                    Academic Year Information
+                                    Academic Year Level Information
                                 </small>
                             </div>
                             <div class="card-body">
@@ -78,14 +78,19 @@
                                     </span>
                                 </div>
                                 <div class="mb-2">
-                                    <i class="fa fa-clock-o text-primary me-2" title="Capacity"/>
-                                    <strong>Start Date:</strong>
+                                    <i class="fa fa-calendar text-primary me-2" title="Capacity"/>
+                                    <strong>Year Of Study: </strong>
                                     <field name="year"/>
                                 </div>
                                 <div class="mb-2">
-                                    <i class="fa fa-hourglass-half text-primary me-2" title="Capacity"/>
-                                    <strong>End Date:</strong>
+                                    <i class="fa fa-book text-primary me-2" title="Capacity"/>
+                                    <strong>Semester: </strong>
                                     <field name="semester"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-graduation-cap text-primary me-2" title="Capacity"/>
+                                    <strong>Degree: </strong>
+                                    <field name="degree"/>
                                 </div>
                                 <hr class="my-3"/>
                                 <div class="mt-3">
@@ -136,7 +141,7 @@
         </field>
     </record>
     <record id="action_school_acedemic_year_level" model="ir.actions.act_window">
-        <field name="name">Academic Year</field>
+        <field name="name">Academic Year Level</field>
         <field name="res_model">school.academic.year.level</field>
         <field name="view_mode">tree,form,kanban</field>
     </record>

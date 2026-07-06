@@ -105,9 +105,9 @@
     />
     <menuitem
         id="menu_school_class_room"
-        name="Class Room"
+        name="Class Group"
         parent="menu_school_class"
-        action="action_school_class_room"
+        action="action_school_class_group"
         sequence="1"
     />
     <menuitem

@@ -1,10 +1,12 @@
-from odoo import fields, models
+from odoo import fields, models, api
 
 class Teacher(models.Model):
     _name = 'school.teacher'
     _description = 'School Teacher'
     _inherit = ['mail.thread']
+
     name = fields.Char(string="Name", tracking=True)
+    teacher_code = fields.Char(string="Teacher Code", tracking=True, default="New", readonly=True)
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
@@ -37,3 +39,11 @@ class Teacher(models.Model):
     def action_reset_draft(self):
         self.write({'status': 'active'})
         self.message_post(body="Student status reset to Active")
+
+    @api.model
+    def create(self, vals):
+        if vals.get("teacher_code", "New") == "New":
+            vals["teacher_code"] = self.env["ir.sequence"].next_by_code(
+                "school.teacher"
+            ) or "New"
+        return super().create(vals)

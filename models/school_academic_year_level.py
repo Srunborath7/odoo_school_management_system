@@ -6,9 +6,13 @@ class SchoolAcademicYearLevel(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string='Name', required=True, tracking=True)
-    year = fields.Integer(string='Year', equired=True, tracking=True)
+    year = fields.Integer(string='Year Of Study', equired=True, tracking=True)
     semester = fields.Integer(string='Semester', equired=True, tracking=True)
-    degree = fields.Char(string='Degree', equired=True, tracking=True)
+    degree = fields.Selection([
+        ('bachelor','Bachelor Degree'),
+        ('master','Master Degree'),
+        ('phd','PhD Degree'),
+    ],string='Degree',default='bachelor',tracking=True)
     description = fields.Text(string='Description')
     status = fields.Selection([
         ('draft', 'Draft'),

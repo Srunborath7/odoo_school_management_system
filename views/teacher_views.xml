@@ -5,6 +5,7 @@
         <field name="model">school.teacher</field>
         <field name="arch" type="xml">
             <tree string="Teachers">
+                <field name="teacher_code"/>
                 <field name="name"/>
                 <field name="gender"/>
                 <field name="email"/>
@@ -21,24 +22,21 @@
         <field name="arch" type="xml">
             <form string="Teacher">
                 <header>
-                    <button name="action_active" type="object" string="Active" class="oe_highlight"
-                            invisible="status != 'inactive'"/>
-                    <button name="action_inactive" type="object" string="Inactive" class="oe_highlight"
-                            invisible="status != 'active'"/>
-                    <button name="action_retired" type="object" string="Retired" class="btn-danger"
-                            invisible="status == 'retired'"/>
-                    <button name="action_reset_draft" type="object" string="Reset to Active"
-                            invisible="status != 'retired'"/>
+                    <button name="action_active" type="object" string="Active" class="oe_highlight" invisible="status != 'inactive'"/>
+                    <button name="action_inactive" type="object" string="Inactive" class="oe_highlight" invisible="status != 'active'"/>
+                    <button name="action_retired" type="object" string="Retired" class="btn-danger" invisible="status == 'retired'"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Active" invisible="status != 'retired'"/>
                     <field name="status" widget="statusbar" statusbar_visible="active,inactive,retired"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
                         <h1>
-                            <field name="name" placeholder="Teacher Name"/>
+                            <field name="teacher_code" readonly="1"/>
                         </h1>
                     </div>
                     <group col="2">
                         <group>
+                            <field name="name" placeholder="Teacher Name"/>
                             <field name="gender"/>
                             <field name="email"/>
                             <field name="phone"/>
@@ -71,6 +69,7 @@
         <field name="model">school.teacher</field>
         <field name="arch" type="xml">
             <kanban>
+                <field name="teacher_code"/>
                 <field name="name"/>
                 <field name="gender"/>
                 <field name="email"/>
@@ -88,7 +87,7 @@
                                     <h3 class="md-0 fw-bold text-white mt-2">
                                         <field name="name"/>
                                     </h3>
-                                    <small class="opacity-75">
+                                    <small class="opacity-75 text-white">
                                         Teacher Information
                                     </small>
                                 </h4>
@@ -101,28 +100,33 @@
                                     </span>
                                 </div>
                                 <div class="mb-2">
+                                    <i class="fa fa-user me-2" title="Venus Mars"/>
+                                    <strong>Code: </strong>
+                                    <field name="teacher_code"/>
+                                </div>
+                                <div class="mb-2">
                                     <i class="fa fa-venus-mars me-2" title="Venus Mars"/>
-                                    <strong>Gender:</strong>
+                                    <strong>Gender: </strong>
                                     <field name="gender"/>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-envelope text-primary me-2" title="Envelope"/>
-                                    <strong>Email:</strong>
+                                    <strong>Email: </strong>
                                     <field name="email"/>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-phone me-2 text-primary" title="Phone"/>
-                                    <strong>Phone:</strong>
+                                    <strong>Phone: </strong>
                                     <field name="phone"/>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-building me-2 text-primary" title="Building"/>
-                                    <strong>Department:</strong>
+                                    <strong>Department: </strong>
                                     <field name="department_ids"/>
                                 </div>
                                 <div class="mb-2">
                                     <i class="fa fa-calendar me-2 text-primary" title="Calendar"/>
-                                    <strong>Start Date:</strong>
+                                    <strong>Start Date: </strong>
                                     <field name="start_date"/>
                                 </div>
                                 <div class="card-footer bg-light text-center">
@@ -137,6 +141,29 @@
                     </t>
                 </templates>
             </kanban>
+        </field>
+    </record>
+    <record id="view_school_teacher_search" model="ir.ui.view">
+        <field name="name">school.teacher.search</field>
+        <field name="model">school.teacher</field>
+        <field name="arch" type="xml">
+            <search string="Search Teacher">
+                <field name="name"/>
+                <field name="status"/>
+                <field name="gender"/>
+                <filter string="Draft" name="draft" domain="[('status','=','draft')]"/>
+                <filter string="Enrolled" name="enrolled" domain="[('status','=','enrolled')]"/>
+                <filter string="Graduated" name="graduated" domain="[('status','=','graduated')]"/>
+                <filter string="Cancelled" name="cancelled" domain="[('status','=','cancelled')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Status" name="group_status" context="{'group_by':'status'}"/>
+                </group>
+                <searchpanel>
+                    <field name="status" string="Status" enable_counters="1"/>
+                    <field name="gender" string="Gender" enable_counters="1"/>
+                </searchpanel>
+            </search>
         </field>
     </record>
     <record id="action_school_teacher" model="ir.actions.act_window">
