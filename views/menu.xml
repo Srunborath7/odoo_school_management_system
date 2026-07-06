@@ -14,16 +14,22 @@
         sequence="1"/>
     <menuitem
         id="menu_school_enroll"
-        name="Enrollment"
+        name="School Enrollment"
         parent="menu_school_management_root"
         groups="school_management_system.group_school_management_admin,school_management_system.group_school_management_teacher"
         sequence="2"/>
+    <menuitem
+        id="menu_school_enrollment"
+        name="Enrollment"
+        parent="menu_school_enroll"
+        action="action_school_enrollment"
+        sequence="1"/>
     <menuitem
         id="menu_school_curriculum"
         name="School Curriculum"
         parent="menu_school_enroll"
         action="action_school_curriculum"
-        sequence="1"/>
+        sequence="2"/>
     <menuitem
         id="menu_school_academic"
         name="Academic"
@@ -50,12 +56,6 @@
         action="action_school_course"
         sequence="3"
     />
-    <menuitem
-        id="menu_school_subject"
-        name="Subjects"
-        parent="menu_school_academic"
-        action="action_school_subjects"
-        sequence="4"/>
     <menuitem
         id="menu_school_academic_year_level"
         name="Academic Year Level"

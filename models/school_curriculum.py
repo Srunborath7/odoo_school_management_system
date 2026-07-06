@@ -36,7 +36,6 @@ class SchoolCurriculum(models.Model):
                 rec.academic_level_id.semester or ""
             )
 
-
     def action_active(self):
         self.write({'status': 'active'})
         self.message_post(body="Curriculum has been activated.")

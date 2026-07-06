@@ -1,3 +1,5 @@
+from email.policy import default
+
 from odoo import fields, models, api
 from datetime import date
 from odoo.exceptions import ValidationError
@@ -9,6 +11,7 @@ class StudentRegistry(models.Model):
     _inherit = ['mail.thread']
 
     name = fields.Char(string='Name', required=True, tracking=True)
+    student_code = fields.Char(string="Student Code", readonly=True, default="New")
     DOB = fields.Date(string='DOB', required=True,default='2005-01-01', tracking=True)
     phone = fields.Char(string='Phone', tracking=True)
     email = fields.Char(string='Email', tracking=True)
@@ -106,3 +109,11 @@ class StudentRegistry(models.Model):
                 'email_from': 'srunborath44@gmail.com',
             }
             self.env['mail.mail'].create(mail_values).send()
+
+    @api.model
+    def create(self, vals):
+        if vals.get("student_code", "New") == "New":
+            vals["student_code"] = self.env["ir.sequence"].next_by_code(
+                "school.student.registry"
+            ) or "New"
+        return super().create(vals)

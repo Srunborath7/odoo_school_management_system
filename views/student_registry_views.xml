@@ -6,6 +6,7 @@
         <field name="arch" type="xml">
             <tree string="Students" decoration-info="status == 'graduated'" decoration-success="status == 'Enrolled'"
                   decoration-danger="status == 'cancelled'" decoration-warning="status == 'cancelled'">
+                <field name="student_code"/>
                 <field name="name"/>
                 <field name="DOB"/>
                 <field name="calc_age"/>
@@ -33,15 +34,16 @@
                     <field name="status" widget="statusbar" statusbar_visible="draft,enrolled,graduated,cancelled"/>
                 </header>
                 <sheet>
+                    <h2><field name="student_code"/></h2>
                     <group>
-                        <group>
+                        <group string="Student Info">
                             <field name="name"/>
                             <field name="DOB"/>
                             <field name="phone"/>
                             <field name="email"/>
                             <field name="address"/>
                         </group>
-                        <group>
+                        <group string="Academic Info">
                             <field name="course_ids"/>
                             <field name="enrolled_date"/>
                             <field name="status"/>
