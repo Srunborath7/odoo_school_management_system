@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="module_category_school_management" model="ir.module.category">
+        <field name="name">School Management</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="group_school_management_admin" model="res.groups">
+        <field name="name">School Management / Admin</field>
+        <field name="category_id" ref="school_management_system.module_category_school_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_school_management_student" model="res.groups">
+        <field name="name">School Management / Student</field>
+        <field name="category_id" ref="school_management_system.module_category_school_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="group_school_management_teacher" model="res.groups">
+        <field name="name">School Management / Teacher</field>
+        <field name="category_id" ref="school_management_system.module_category_school_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

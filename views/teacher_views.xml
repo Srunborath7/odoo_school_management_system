@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_school_teacher_tree" model="ir.ui.view">
+        <field name="name">school.teacher.tree</field>
+        <field name="model">school.teacher</field>
+        <field name="arch" type="xml">
+            <tree string="Teachers">
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="department_ids"/>
+                <field name="start_date"/>
+                <field name="status"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_school_teacher_form" model="ir.ui.view">
+        <field name="name">school.teacher.form</field>
+        <field name="model">school.teacher</field>
+        <field name="arch" type="xml">
+            <form string="Teacher">
+                <header>
+                    <button name="action_active" type="object" string="Active" class="oe_highlight"
+                            invisible="status != 'inactive'"/>
+                    <button name="action_inactive" type="object" string="Inactive" class="oe_highlight"
+                            invisible="status != 'active'"/>
+                    <button name="action_retired" type="object" string="Retired" class="btn-danger"
+                            invisible="status == 'retired'"/>
+                    <button name="action_reset_draft" type="object" string="Reset to Active"
+                            invisible="status != 'retired'"/>
+                    <field name="status" widget="statusbar" statusbar_visible="active,inactive,retired"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Teacher Name"/>
+                        </h1>
+                    </div>
+                    <group col="2">
+                        <group>
+                            <field name="gender"/>
+                            <field name="email"/>
+                            <field name="phone"/>
+                        </group>
+                        <group>
+                            <field name="department_ids"/>
+                            <field name="start_date"/>
+                            <field name="status"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Address">
+                            <field name="address" nolabel="1" placeholder="Enter address..." style="width:100%; min-height:150px;"/>
+                        </page>
+                        <page string="Notes">
+                            <field name="note" nolabel="1" placeholder="Enter notes..." style="width:100%; min-height:150px;"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="message_ids"/>
+                </div>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="view_school_teacher_kanban" model="ir.ui.view">
+        <field name="name">school.teacher.kanban</field>
+        <field name="model">school.teacher</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="gender"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="department_ids"/>
+                <field name="start_date"/>
+                <field name="status"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
+                            <div class="card-header text-center text-white py-4"
+                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);border-radius: 24px 24px 0 0;box-shadow: 0 4px 12px rgba(0,0,0,.15);">
+                                <h4 class="mb-0">
+                                    <i class="fa fa-user-circle me-2 fa-3x text-white" title="User"/>
+                                    <h3 class="md-0 fw-bold text-white mt-2">
+                                        <field name="name"/>
+                                    </h3>
+                                    <small class="opacity-75">
+                                        Teacher Information
+                                    </small>
+                                </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 text-end text-white">
+                                    <span class="badge rounded-pill bg-primary fs-6 px-3 py-2">
+                                        <i class="fa fa-person-shelter me-1" title="Floor"/>
+                                        <field name="status"/>
+                                    </span>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-venus-mars me-2" title="Venus Mars"/>
+                                    <strong>Gender:</strong>
+                                    <field name="gender"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-envelope text-primary me-2" title="Envelope"/>
+                                    <strong>Email:</strong>
+                                    <field name="email"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-phone me-2 text-primary" title="Phone"/>
+                                    <strong>Phone:</strong>
+                                    <field name="phone"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-building me-2 text-primary" title="Building"/>
+                                    <strong>Department:</strong>
+                                    <field name="department_ids"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-calendar me-2 text-primary" title="Calendar"/>
+                                    <strong>Start Date:</strong>
+                                    <field name="start_date"/>
+                                </div>
+                                <div class="card-footer bg-light text-center">
+                                    <small class="text-muted">
+                                        <i class="fa fa-graduation-cap me-1" title="Graduation"/>
+                                        School Management System
+                                    </small>
+                                </div>
+
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="action_school_teacher" model="ir.actions.act_window">
+        <field name="name">Teachers</field>
+        <field name="res_model">school.teacher</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_school_department_tree" model="ir.ui.view">
+        <field name="name">school.department.tree</field>
+        <field name="model">school.department</field>
+        <field name="arch" type="xml">
+            <tree string="Department">
+                <field name="name"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_school_department_form" model="ir.ui.view">
+        <field name="name">school.department.form</field>
+        <field name="model">school.department</field>
+        <field name="arch" type="xml">
+            <form string="Department">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" groups="base.group_user"/>
+                    <field name="message_ids"/>
+                </div>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+    <record id="view_school_department_kanban" model="ir.ui.view">
+        <field name="name">school.department.kanban</field>
+        <field name="model">school.department</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="note"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
+                            <div class="card-header text-center text-white py-4"
+                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);border-radius: 24px 24px 0 0;box-shadow: 0 4px 12px rgba(0,0,0,.15);">
+                                <i class="fa fa-building-o me-2 fa-3x" title="Room"/>
+                                <h3 class="md-0 fw-bold text-white mt-2">
+                                    <field name="name"/>
+                                </h3>
+                                <small class="opacity-75">
+                                    Department Information
+                                </small>
+                            </div>
+                            <hr class="my-3"/>
+                            <div class="card-body mt-3">
+                                <i class="fa fa-quote-left text-primary me-2" title="quote"/>
+                                <strong>Note:</strong>
+
+                                <blockquote class="blockquote mt-2 ps-3 border-start">
+                                    <field name="note"/>
+                                </blockquote>
+                            </div>
+                            <div class="card-footer bg-light text-center">
+                                <small class="text-muted">
+                                    <i class="fa fa-graduation-cap me-1" title="Graduation"/>
+                                    School Management System
+                                </small>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record id="action_school_department" model="ir.actions.act_window">
+        <field name="name">Department</field>
+        <field name="res_model">school.department</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+
+</odoo>

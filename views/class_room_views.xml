@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_school_adcademic_program_tree" model="ir.ui.view">
+        <field name="name">school.class.room.tree</field>
+        <field name="model">school.class.room</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="floor"/>
+                <field name="capacity"/>
+                <field name="academic_year_ids"/>
+                <field name="teacher_ids"/>
+                <field name="course_ids"/>
+                <field name="semester"/>
+                <field name="year"/>
+                <field name="status"/>
+                <field name="description"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_school_adcademic_program_form" model="ir.ui.view">
+        <field name="name">school.class.room.form</field>
+        <field name="model">school.class.room</field>
+        <field name="arch" type="xml">
+            <form string="Academic Program">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="floor"/>
+                        <field name="capacity"/>
+                        <field name="academic_year_ids"/>
+                        <field name="teacher_ids"/>
+                        <field name="course_ids"/>
+                        <field name="semester"/>
+                        <field name="year"/>
+                        <field name="status"/>
+                    </group>
+                    <notebook>
+                        <page string="Description">
+                            <field name="description"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="view_academic_program_kanban" model="ir.ui.view">
+        <field name="name">school.class.room.kanban</field>
+        <field name="model">school.class.room</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="floor"/>
+                <field name="capacity"/>
+                <field name="academic_year_ids"/>
+                <field name="teacher_ids"/>
+                <field name="course_ids"/>
+                <field name="semester"/>
+                <field name="year"/>
+                <field name="status"/>
+                <field name="description"/>
+                <template>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click card border-0 shadow rounded-4 overflow-hidden">
+                            <div class="card-header text-center  text-white"
+                                 style="background: linear-gradient(135deg,#2d358e,#4f5bd5);">
+                                <i class="fa fa-building-o me-2 fa-3x" title="Room"/>
+                                <h3 class="md-0 fw-bold text-white mt-2">
+                                    <field name="name"/>
+                                </h3>
+                                <small class="opacity-75">
+                                    Class Room Information
+                                </small>
+                            </div>
+                            <div class="card-body">
+                                <div class="mb-3 text-end text-white">
+                                    <span class="badge rounded-pill bg-primary fs-6 px-3 py-2">
+                                        <i class="fa fa-person-shelter me-1" title="Floor"/>
+                                        <field name="floor"/>
+                                    </span>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-users text-primary me-2" title="Capacity"/>
+                                    <strong>Capacity: </strong>
+                                    <field name="capacity"/>
+                                </div>
+                                <hr class="my-3"/>
+                                <div class="mb-2">
+                                    <i class="fa fa-calendar text-primary me-2" title="Calendar"/>
+                                    <strong>Academic Year: </strong>
+                                    <field name="academic_year_ids"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-graduation-cap text-primary me-2" title="Teacher"/>
+                                    <strong>Teacher: </strong>
+                                    <field name="teacher_ids"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-book me-2 text-primary" title="Book"/>
+                                    <strong>Course: </strong>
+                                    <field name="course_ids"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-calendar-o me-2 text-primary" title="Semester"/>
+                                    <strong>Semester: </strong>
+                                    <field name="semester"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-calendar me-2 text-primary" title="Year"/>
+                                    <strong>Year: </strong>
+                                    <field name="year"/>
+                                </div>
+                                <div class="mb-2"
+                                     decoration-info="status == 'draft'"
+                                     decoration-success="status == 'active' or status == 'completed'"
+                                     decoration-danger="status == 'inactive'"
+                                     decoration-warning="status == 'cancelled'">
+                                    <i class="fa fa-info-circle text-primary me-2" title="Status"/>
+                                    <strong>Status: </strong>
+                                    <field name="status"/>
+                                </div>
+                                <div class="mb-2">
+                                    <i class="fa fa-file-text-o me-2 text-primary" title="Description"/>
+                                    <strong>Description: </strong>
+                                    <field name="description"/>
+                                </div>
+                            </div>
+
+                            <div class="card-footer bg-light text-center">
+                                <small class="text-muted">
+                                    <i class="fa fa-graduation-cap me-1" title="Graduation"/>
+                                    School Management System
+                                </small>
+                            </div>
+                        </div>
+                    </t>
+                </template>
+            </kanban>
+        </field>
+    </record>
+    <record id="view_academic_program_search" model="ir.ui.view">
+        <field name="name">school.academic.program.search</field>
+        <field name="model">school.academic.program</field>
+        <field name="arch" type="xml">
+            <search string="Academic Program">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="department_ids"/>
+                <filter string="Draft" name="draft_program" domain="[('status','=','draft')]"/>
+                <filter string="Active" name="active_program" domain="[('status','=','active')]"/>
+                <filter string="Inactive" name="inactive_program" domain="[('status','=','inactive')]"/>
+                <filter string="Closed" name="closed_program" domain="[('status','=','closed')]"/>
+                <filter string="Completed" name="completed_program" domain="[('status','=','completed')]"/>
+                <separator/>
+                <group expand="1" string="Group By">
+                    <filter string="Department" name="group_department" context="{'group_by' : 'department_ids'}"/>
+                    <filter string="Academic Program Name" name="group_academic_program"
+                            context="{'group_by' : 'name'}"/>
+                </group>
+                <searchpanel>
+                    <field name="department_ids" string="Department" enable_counters="1"/>
+                    <field name="status" string="Status" enable_counters="1"/>
+                </searchpanel>
+            </search>
+        </field>
+    </record>
+    <record id="action_school_class_room" model="ir.actions.act_window">
+        <field name="name">Class Room</field>
+        <field name="res_model">school.class.room</field>
+        <field name="view_mode">tree,form,kanban</field>
+    </record>
+</odoo>
