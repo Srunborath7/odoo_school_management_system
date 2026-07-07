@@ -1,14 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <odoo>
+
     <record id="email_template_student_enrollment" model="mail.template">
-        <field name="name">Student Enrollment Confirmation</field>
-        <field name="model_id" ref="model_school_student_registry"/>
-        <field name="subject">Enrollment Confirmed - {{ object.name }}</field>
-        <field name="email_to">{{ object.email }}</field>
-        <field name="email_from">{{ user.email or 'noreply@yourschool.com' }}</field>
+        <field name="name">Purchase Request Approved</field>
+
+        <field name="model_id" ref="model_school_purchase_request"/>
+
+        <field name="subject">Purchase Request Approved - {{ object.name }}</field>
+
+        <field name="email_to">{{ object.requester_id.email }}</field>
+
+        <field name="email_from">{{ user.email or 'noreply@schoolmanagementsystem.com' }}</field>
+
         <field name="body_html" type="html">
-            <p>Dear <t t-out="object.name"/>,</p>
-            <p>Congratulations! Your enrollment has been confirmed.</p>
-            <p>Regards,<br/>School Administration</p>
+            <p>
+                Dear<t t-out="object.name"/>,
+            </p>
+
+            <p>
+                Congratulations! Your enrollment has been confirmed.
+            </p>
+
+            <p>
+                Regards,
+                <br/>
+                School Administration
+            </p>
         </field>
     </record>
+<record id="email_purchase_request_approved" model="mail.template">
+
+        <field name="name">Purchase Request Approved</field>
+
+        <field name="model_id" ref="model_school_purchase_request"/>
+
+        <field name="subject">Purchase Request Approved - {{ object.name }}</field>
+
+        <field name="email_to">{{ object.requester_id.email }}</field>
+
+        <field name="email_from">{{ user.email or 'noreply@yourschool.com' }}</field>
+
+        <field name="body_html" type="html">
+
+            <p>
+                Hello
+                <strong>
+                    <t t-out="object.requester_id.name"/>
+                </strong>
+            </p>
+
+            <p>
+                Your purchase request
+                <strong>
+                    <t t-out="object.name"/>
+                </strong>
+                has been approved.
+            </p>
+
+            <p>
+                <strong>Approved By:</strong>
+                <t t-out="object.approved_by.name"/>
+            </p>
+
+            <p>
+                <strong>Approval Date:</strong>
+                <t t-out="object.approval_date"/>
+            </p>
+
+            <p>
+                Thank you.
+            </p>
+
+        </field>
+
+    </record>
+
 </odoo>

@@ -13,4 +13,8 @@ from . import room
 from . import school_major
 from . import school_curriculum
 from . import school_enrollment
+from . import purchase_request
+from . import purchase_request_line
+from . import res_partner
+from  . import purchase_order
 

@@ -8,7 +8,10 @@
 
     'depends': [
         'base',
-        'mail'
+        'mail',
+        'purchase',
+        'base_automation',
+        'contacts',
     ],
 
     'data': [
@@ -16,6 +19,8 @@
         'security/ir.model.access.csv',
         'data/sequence.xml',
         'data/mail_template.xml',
+        'data/server_action.xml',
+        'data/automated_action.xml',
         'security/record_rules.xml',
         'views/student_registry_views.xml',
         'views/student_course_views.xml',
@@ -32,6 +37,9 @@
         'views/room_views.xml',
         'views/school_curriculum_views.xml',
         'views/school_enrollment_views.xml',
+        'views/purchase_request_views.xml',
+        'views/res_partner_views.xml',
+        'views/purchase_order_views.xml',
         'views/menu.xml',
     ],
     'assets': {
