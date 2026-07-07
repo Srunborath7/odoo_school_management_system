@@ -5,6 +5,7 @@ from datetime import date
 from odoo.exceptions import ValidationError
 from odoo.exceptions import UserError
 
+
 class StudentRegistry(models.Model):
     _name = 'school.student.registry'
     _description = 'Student Registry'
@@ -12,7 +13,7 @@ class StudentRegistry(models.Model):
 
     name = fields.Char(string='Name', required=True, tracking=True)
     student_code = fields.Char(string="Student Code", readonly=True, default="New")
-    DOB = fields.Date(string='DOB', required=True,default='2005-01-01', tracking=True)
+    DOB = fields.Date(string='DOB', required=True, default='2005-01-01', tracking=True)
     phone = fields.Char(string='Phone', tracking=True)
     email = fields.Char(string='Email', tracking=True)
     address = fields.Char(string='Address', tracking=True)
@@ -29,28 +30,36 @@ class StudentRegistry(models.Model):
             ('enrolled', 'Enrolled'),
             ('graduated', 'Graduated'),
             ('cancelled', 'Cancelled')
-        ],string="Status",default='draft',required=True,tracking=True)
+        ], string="Status", default='draft', required=True, tracking=True)
     gender = fields.Selection([
         ('male', 'Male'),
         ('female', 'Female'),
         ('other', 'Other')
-    ],string="Gender",default='male',required=True,tracking=True)
+    ], string="Gender", default='male', required=True, tracking=True)
     calc_age = fields.Integer(string="Calc Age", compute='_compute_calc_age')
     theme_primary = fields.Char(compute='_compute_theme_colors')
     theme_secondary = fields.Char(compute='_compute_theme_colors')
-    text_color_primary= fields.Char(compute='_compute_theme_colors')
-    text_color_secondary= fields.Char(compute='_compute_theme_colors')
+    text_color_primary = fields.Char(compute='_compute_theme_colors')
+    text_color_secondary = fields.Char(compute='_compute_theme_colors')
 
     def action_enroll(self):
         for student in self:
             if not student.email:
-                raise UserError(_("Please set an email address before enrolling %s.") % student.name)
+                raise UserError("Please set an email address before enrolling %s." % student.name)
 
-            # Update status
-            student.status = 'enrolled'
-
-            # Send enrollment email
+            student.status = "enrolled"
             student._send_enrollment_email()
+
+        return {
+            "type": "ir.actions.client",
+            "tag": "display_notification",
+            "params": {
+                "title": "Enrollment Successful",
+                "message": "The student has been enrolled successfully and the enrollment email has been sent.",
+                "type": "success",
+                "sticky": False,
+            },
+        }
 
     def action_graduate(self):
         self.write({'status': 'graduated'})
@@ -94,20 +103,23 @@ class StudentRegistry(models.Model):
 
     def _send_enrollment_email(self):
         self.ensure_one()
+
         template = self.env.ref(
-            'school_management_system.email_template_student_enrollment',
+            "school_management_system.email_template_student_enrollment",
             raise_if_not_found=False
         )
+
         if template:
-            template.send_mail(self.id, force_send=True)
-        else:
-            mail_values = {
-                'subject': 'Enrollment Confirmation',
-                'body_html': '<p>Dear %s,</p><p>You have been successfully enrolled.</p>' % self.name,
-                'email_to': self.email,
-                'email_from': 'srunborath44@gmail.com',
-            }
-            self.env['mail.mail'].create(mail_values).send()
+            template.send_mail(
+                self.id,
+                force_send=True,
+                email_values={
+                    "email_from": self.env.user.email,
+                    "email_to": self.email,
+                }
+            )
+
+        return True
 
     @api.model
     def create(self, vals):

@@ -19,6 +19,8 @@
         'security/ir.model.access.csv',
         'data/sequence.xml',
         'data/mail_template.xml',
+        'data/mail_purchase_request.xml',
+        'data/mail_student_enrollment.xml',
         'data/server_action.xml',
         'data/automated_action.xml',
         'security/record_rules.xml',

@@ -7,7 +7,6 @@
             <tree>
                 <field name="priority" widget="priority"/>
                 <field name="name"/>
-                <field name="email"/>
                 <field name="requester_id"/>
                 <field name="department"/>
                 <field name="request_date"/>
@@ -39,7 +38,6 @@
                         </h1>
                     </div>
                     <group>
-                        <field name="email"/>
                         <field name="requester_id"/>
                         <field name="department"/>
                         <field name="request_date"/>

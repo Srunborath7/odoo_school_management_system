@@ -72,42 +72,28 @@ class PurchaseRequest(models.Model):
     def _send_purchase_approval_email(self):
         self.ensure_one()
 
-        mail_values = {
-            'subject': 'Purchase Request Approved - %s' % self.name,
+        self.write({
+            "state": "approve",
+            "approved_by": self.env.user.id,
+            "approval_date": fields.Datetime.now(),
+        })
 
-            'body_html': '''
-                <p>Hello %s,</p>
+        template = self.env.ref(
+            "school_management_system.email_purchase_request_approved",
+            raise_if_not_found=False
+        )
 
-                <p>
-                    Your purchase request 
-                    <strong>%s</strong>
-                    has been approved.
-                </p>
+        if template:
+            template.send_mail(
+                self.id,
+                force_send=True,
+                email_values={
+                    "email_from": self.env.user.email,
+                    "email_to": self.requester_id.email,
+                }
+            )
 
-                <p>
-                    Approved By: %s
-                </p>
-
-                <p>
-                    Approval Date: %s
-                </p>
-
-                <p>
-                    Thank you.
-                </p>
-            ''' % (
-                self.requester_id.name,
-                self.name,
-                self.approved_by.name if self.approved_by else '',
-                self.approval_date or '',
-            ),
-
-            'email_to': self.requester_id.email,
-            'email_from': self.env.user.email or 'srunborath44@gmail.com',
-        }
-
-        mail = self.env['mail.mail'].create(mail_values)
-        mail.send()
+        return True
 
     def action_reject(self):
         self.state = "reject"
