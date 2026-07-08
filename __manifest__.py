@@ -44,6 +44,7 @@
         'views/purchase_request_views.xml',
         'views/res_partner_views.xml',
         'views/purchase_order_views.xml',
+        'views/purchase_analysis_report_views.xml',
         'views/menu.xml',
     ],
     'assets': {
