@@ -3,7 +3,7 @@ from odoo import fields, models, api
 class TimeTableSlot(models.Model):
     _name = 'school.timetable.slot'
     _description = 'TimeTable Slot'
-    name = fields.Char(string="Title", compute="_compute_name", required=True)
+    name = fields.Char(string="Title", required=True)
     day_of_week = fields.Selection([
         ('mon', 'Monday'),
         ('tue', 'Tuesday'),
@@ -19,9 +19,6 @@ class TimeTableSlot(models.Model):
 
     academic_year_id = fields.Many2one('school.academic.year', required=True)
     program_id = fields.Many2one('school.academic.program', required=True)
-    class_id = fields.Many2one('school.class.room', required=True)
-
-    subject_id = fields.Many2one('school.subject', required=True)
     teacher_id = fields.Many2one('school.teacher', required=True)
 
     color = fields.Integer(string="Color Index")
@@ -31,11 +28,6 @@ class TimeTableSlot(models.Model):
         compute="_compute_duration",
         store=True
     )
-
-    @api.depends('day_of_week', 'start_time', 'end_time', 'subject_id', 'class_id')
-    def _compute_name(self):
-        for rec in self:
-            rec.name = f"{rec.class_id.name or ''} - {rec.subject_id.name or ''} ({rec.day_of_week})"
 
     @api.depends('start_time', 'end_time')
     def _compute_duration(self):

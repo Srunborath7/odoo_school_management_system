@@ -9,8 +9,6 @@
                 <field name="day_of_week"/>
                 <field name="start_time"/>
                 <field name="end_time"/>
-                <field name="class_id"/>
-                <field name="subject_id"/>
                 <field name="teacher_id"/>
                 <field name="color" optional="1"/>
             </tree>
@@ -37,11 +35,9 @@
                     <group string="Academic Info">
                         <field name="academic_year_id"/>
                         <field name="program_id"/>
-                        <field name="class_id"/>
                     </group>
 
                     <group string="Schedule Info">
-                        <field name="subject_id"/>
                         <field name="teacher_id"/>
                     </group>
 
@@ -60,9 +56,7 @@
         <field name="arch" type="xml">
             <calendar string="Class Timetable" date_start="start_time" date_stop="end_time" color="color" mode="week" event_open_popup="true">
                 <field name="name"/>
-                <field name="subject_id"/>
                 <field name="teacher_id"/>
-                <field name="class_id"/>
             </calendar>
         </field>
     </record>

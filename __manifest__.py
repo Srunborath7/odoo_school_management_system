@@ -12,6 +12,8 @@
         'purchase',
         'base_automation',
         'contacts',
+        'report_xlsx',
+        'product',
     ],
 
     'data': [

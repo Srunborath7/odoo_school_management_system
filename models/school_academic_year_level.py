@@ -6,8 +6,8 @@ class SchoolAcademicYearLevel(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     name = fields.Char(string='Name', required=True, tracking=True)
-    year = fields.Integer(string='Year Of Study', equired=True, tracking=True)
-    semester = fields.Integer(string='Semester', equired=True, tracking=True)
+    year = fields.Integer(string='Year Of Study', required=True, tracking=True)
+    semester = fields.Integer(string='Semester', required=True, tracking=True)
     degree = fields.Selection([
         ('bachelor','Bachelor Degree'),
         ('master','Master Degree'),
@@ -19,7 +19,7 @@ class SchoolAcademicYearLevel(models.Model):
         ('active', 'Active'),
         ('inactive', 'Inactive'),
         ('cancel', 'Cancel'),
-    ],string='Status', default='draft', equired=True, tracking=True)
+    ],string='Status', default='draft', required=True, tracking=True)
 
     @api.model
     def create(self, vals):

@@ -12,12 +12,12 @@ class SchoolSetting(models.Model):
     )
 
     text_color_primary= fields.Char(
-        string="Text Color",
+        string="Text Color  Primary",
         default="#ffffff",
         required=True
     )
     text_color_secondary= fields.Char(
-        string="Text Color",
+        string="Text Color Secondary",
         default="#000000",
         required=True
     )

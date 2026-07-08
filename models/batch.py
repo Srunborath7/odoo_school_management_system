@@ -4,6 +4,7 @@ class Batch(models.Model):
     _name = 'school.batch'
     _description = 'Batch'
     _inherit = ['mail.thread']
+
     name = fields.Char(string="Batch Name")
     academic_program_ids = fields.Many2one("school.academic.program", string="Academic Program", required=True, tracking=True)
     academic_year_ids = fields.Many2one("school.academic.year", string="Academic Year", required=True, tracking=True)

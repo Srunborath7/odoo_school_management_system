@@ -7,12 +7,12 @@ class SchoolMajor(models.Model):
     _description = 'School Major'
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char(string='Major Name',equired=True, tracking=True)
-    department_ids = fields.Many2one('school.department', string='Departments', equired=True, tracking=True)
+    name = fields.Char(string='Major Name',required=True, tracking=True)
+    department_ids = fields.Many2one('school.department', string='Departments', required=True, tracking=True)
     description = fields.Char(string='Major Description')
     status = fields.Selection([
         ('draft', 'Draft'),
         ('active', 'Active'),
         ('inactive', 'Inactive'),
         ('cancel', 'Cancel'),
-    ], string='Status', default='draft', equired=True, tracking=True)
+    ], string='Status', default='draft', required=True, tracking=True)

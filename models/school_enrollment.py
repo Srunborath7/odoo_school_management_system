@@ -21,6 +21,7 @@ class SchoolEnrollment(models.Model):
         ('inactive', 'Inactive'),
         ('closed', 'Closed'),
     ], default='draft', tracking=True)
+
     @api.model
     def create(self, vals):
         if vals.get("name", "New") == "New":
@@ -28,6 +29,7 @@ class SchoolEnrollment(models.Model):
                 "school.enrollment"
             ) or "New"
         return super().create(vals)
+
     def action_active(self):
         self.write({'status': 'active'})
         self.message_post(body="Enrollment status has been activated.")
