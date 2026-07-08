@@ -23,6 +23,8 @@
         'data/mail_student_enrollment.xml',
         'data/server_action.xml',
         'data/automated_action.xml',
+        'reports/purchase_request_templates.xml',
+        'reports/purchase_request_report.xml',
         'security/record_rules.xml',
         'views/student_registry_views.xml',
         'views/student_course_views.xml',

@@ -22,11 +22,12 @@
         <field name="arch" type="xml">
             <form>
                 <header>
+                    <button name="%(action_purchase_request_report)d" type="action" string="Print Purchase Request" class="btn-primary"/>
                     <button name="action_submit" type="object" string="Submit" invisible="state != 'draft'" class="btn-primary"/>
                     <button name="action_approve" type="object" string="Approve" invisible="state != 'submit'" class="btn-success"/>
                     <button name="action_reject" type="object" string="Reject" invisible="state != 'submit'" class="btn-danger"/>
                     <button name="action_draft" type="object" string="Reset to Draft" invisible="state == 'draft'"/>
-                    <field name="state" wiudget="statusbar" statusbar_visible="draft,submit,approve,reject"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submit,approve,reject"/>
                 </header>
                 <sheet>
                     <div class="oe_title">

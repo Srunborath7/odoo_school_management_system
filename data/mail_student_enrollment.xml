@@ -17,8 +17,8 @@
                        style="background:#ffffff;border-radius:8px;border:1px solid #dddddd;">
 
                     <tr>
-                        <td style="background:#1976D2;color:#ffffff;padding:25px;text-align:center;">
-                            <h2 style="margin:0;">🎓 Student Enrollment Successful</h2>
+                        <td style="background:#875A7B;color:#ffffff;padding:25px;text-align:center;">
+                            <h2 style="margin:0;">Student Enrollment Successful</h2>
                         </td>
                     </tr>
 
@@ -136,7 +136,7 @@
 
                             <div style="margin-top:30px;text-align:center;">
                                 <a t-att-href="object.get_base_url() + '/web#id=%s&amp;model=school.student.registry&amp;view_type=form' % object.id"
-                                   style="background:#1976D2;color:#ffffff;padding:12px 25px;
+                                   style="background:#875A7B;color:#ffffff;padding:12px 25px;
                           text-decoration:none;border-radius:5px;font-weight:bold;">
                                     View Student Record
                                 </a>

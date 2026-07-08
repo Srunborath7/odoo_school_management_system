@@ -10,6 +10,7 @@ class PurchaseRequestLine(models.Model):
     quantity = fields.Float(default=1)
     price = fields.Float()
     subtotal = fields.Float(compute="_compute_subtotal",store=True,)
+    total_amount = fields.Float()
 
     @api.onchange("product_id")
     def _onchange_product(self):

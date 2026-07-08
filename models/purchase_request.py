@@ -25,6 +25,7 @@ class PurchaseRequest(models.Model):
     total_amount = fields.Float(compute="_compute_total",store=True,)
     approved_by = fields.Many2one("res.users",string="Approved By",readonly=True,tracking=True)
     approval_date = fields.Date(string="Approval Date",readonly=True,tracking=True)
+
     @api.depends("line_ids.subtotal")
     def _compute_total(self):
         for rec in self:
